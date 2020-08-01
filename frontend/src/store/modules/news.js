@@ -15,7 +15,7 @@ export default {
                     method: "GET"
                 })
                 .then((news) => {
-                    commit('SET_NEWS_TO_STATE', news.data);
+                    commit('SET_NEWS_TO_STATE', news.data.feeds);
                     return news;
                 })
                 .catch((error) => {

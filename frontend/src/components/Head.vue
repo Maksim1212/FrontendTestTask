@@ -1,6 +1,4 @@
 <template>
-  <div id="app">
-    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
     <div class="head">
       <a class="href" href="URL">Главная</a>
       <a v-if="userName !==''" class="userName">{{userName}} |</a>
@@ -8,7 +6,6 @@
         <button class="loginButton" v-if="userName ==''" v-on:click="signIn">Войти</button>
         <button class="loginButton" v-else v-on:click="signOut">Выйти</button>
     </div>
-  </div>
 </template>
 
 <script>
