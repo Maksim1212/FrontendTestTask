@@ -1,69 +1,30 @@
-
 <template>
   <div id="app">
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-    <div class="head">
-      <a class="href" href="URL">Главная</a>
-      <a v-if="userName !==''" class="userName">{{userName}} |</a>
-      <a v-else class="userName"></a>
-        <button class="loginButton" v-if="userName ==''" v-on:click="signIn">Войти</button>
-             <button class="loginButton" v-else v-on:click="signOut">Выйти</button>
+    <Head/>
+    <div>
+        <p>{{NEWS}}</p>
     </div>
   </div>
 </template>
 
 <script>
+import Head from './components/head'
+import {mapActions, mapGetters} from 'vuex'
 
 export default {
   name: 'App',
-  data() {
-            return {
-                userName:'',
-                content: [],
-                title: [],
-                displayName: [],
-            }
-        },
-  // metaInfo: {
-  //   meta: [
-  //    { name:"google-signin-scope",
-  //      content:"profile email"
-  //    },
-  //    {
-  //      name:"google-signin-client_id",
-  //      content:"247409339704-fohillbippgv49r9054m33j0egmel218.apps.googleusercontent.com"
-  //    }]
-  //   },
-    methods: {
-    async signIn(){
-    console.log('login');
-    const googleUser = await this.$gAuth.signIn();
-    this.userName += googleUser.Ot.FW;
-    console.log(googleUser);
-      },
-    async signOut(){
-      const response = await this.$gAuth.signOut()
-      console.log(response);
-    }
+  methods: {
+        ...mapActions(['GET_NEWS_FROM_API']),
   },
   computed: {
-    allPosts() {
-      return this.$store.getters.allPosts;
-    }
+   ...mapGetters(['NEWS']),
   },
   components: {
-    // HelloWorld,
-    // GoogleLogin,
+    Head,
   },
-  async mounted() { 
-     const res = await this.axios.get('http://127.0.0.1:5000/api/v1/feeds', {});
-    //this.axios.get('http://127.0.0.1:5000/api/v1/feeds').then(response => console.log(response));
-    console.log(res.data.feeds);
-    for (let i = 0; i <= res.data.length; i += 1) {
-            this.content.push(res.data[i].content);
-            this.title.push(res.data[i].title);
-            this.displayName.push(res.data[i].displayName);
-        }
+   mounted() { 
+       this.GET_NEWS_FROM_API()
   },
 }
 
