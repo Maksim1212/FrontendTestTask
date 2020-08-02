@@ -1,6 +1,9 @@
 <template>
     <div class="head">
-      <a class="href" href="URL">Главная</a>
+      <a class="href">
+         <router-link :to="'/news/'"> 
+         Главная
+  </router-link></a>
       <a v-if="userName !==''" class="userName">{{userName}} |</a>
       <a v-else class="userName"></a>
         <button class="loginButton" v-if="userName ==''" v-on:click="signIn">Войти</button>

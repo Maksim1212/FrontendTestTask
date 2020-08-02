@@ -2,7 +2,12 @@
   <div class="NewsItem">
       <h3>{{news_data.title}}</h3>
       <p>{{news_data.creator.displayName}} | {{news_data.createDate.split('T')[0]}}</p>
-      <p>{{news_data.content}}</p>
+      <p>{{news_data.content}}
+           <router-link :to="{name: 'read', params: {id: news_data._id}}"> 
+          <!-- <router-link :to="'/news'+news_data._id">  -->
+              ...
+          </router-link>
+      </p>
   </div>
 </template>
 
