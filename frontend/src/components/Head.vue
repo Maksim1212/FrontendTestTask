@@ -1,5 +1,5 @@
 <template>
-    <div class="head">
+    <div class="Head">
       <a class="href">
          <router-link :to="'/news/'"> 
          Главная
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-
+import axios from 'axios';
 
 export default {
   name: 'Head',
@@ -21,27 +21,37 @@ export default {
                 userName:'',
                 googleId:Number,
                 id_token: '',
-                userData: [],
             }
         },
-    methods: {
-   async signIn(){
-      console.log('buttonOk'); 
+
+  methods: {
+    async signIn(){
+      try{
       const googleUser = await this.$gAuth.signIn();
       localStorage.setItem('name', googleUser.Ot.FW);
       localStorage.setItem('googleID', googleUser.Ot.$U);
       localStorage.setItem('id_token', googleUser.wc.id_token);
       this.userName = localStorage.getItem('name');
+      let token = await axios.post('http://127.0.0.1:5000/api/v1/auth/google', {
+        token: `${localStorage.getItem('id_token')}`
+      });
+      console.log(token.data.token);
+      localStorage.setItem('api_token', token.data.token);
       // localStorage.getItem('googleID'),
       // localStorage.getItem('id_token')
-           
+      }catch(error){
+        console.log(error)
+      }         
     },
     async signOut(){
+      try{
         await this.$gAuth.signOut();
         localStorage.clear();
         this.userName = '';
+      }catch(error){
+        console.log(error)
+      }
     }
-
   },
   
   mounted() {
@@ -55,9 +65,9 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 
-.head {
+.Head {
   width: 99%;  height: 38px; /* Размеры */
   outline: 1px solid #000; /* Чёрная рамка */
   border: 3px solid #fff; /* Белая рамка */

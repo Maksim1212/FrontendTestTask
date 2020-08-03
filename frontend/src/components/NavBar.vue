@@ -27,7 +27,8 @@ export default {
   //    console.log(data);
   //  },
    deleteItem(id) {
-       this.DELETE_NEWS_ITEM_BY_ID_FROM_API(id);
+     let xAccessToken = localStorage.getItem('api_token')
+      this.DELETE_NEWS_ITEM_BY_ID_FROM_API(id,xAccessToken);
    }
   },
   computed: {
@@ -44,7 +45,7 @@ export default {
 }
 </script>
 
-<style>
+<style >
 #navBar {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

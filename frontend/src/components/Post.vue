@@ -2,17 +2,16 @@
   <div class="post">
       <h1>Hello  
       </h1>
-      <!-- <h3>{{NEWS.title}}</h3>
+      <h3>{{NEWS.title}}</h3>
       <p>{{NEWS.creator.displayName}} | {{NEWS.createDate.split('T')[0]}}</p>
       <br>
-      <p>{{NEWS.content}}</p>  -->
+      <p>{{NEWS.content}}</p> 
   </div>
 </template>
 
 <script>
 
 import {mapActions, mapGetters} from 'vuex'
-
 
 export default {
   name: 'Post',
@@ -21,9 +20,6 @@ export default {
   },
   computed: {
    ...mapGetters(['NEWS']),
-  },
-  components: {
-     
   },
    mounted() { 
        this.GET_NEWS_ITEM_BY_ID_FROM_API(this.$route.params.id)

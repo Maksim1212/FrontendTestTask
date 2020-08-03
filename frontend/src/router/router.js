@@ -8,7 +8,7 @@ export default new Router({
     // base: process.env.BASE_URL,
     routes: [{
             path: '/news',
-            name: 'index',
+            name: 'Index',
             component: () =>
                 import ('../components/NavBar.vue')
         },
@@ -18,6 +18,13 @@ export default new Router({
             component: () =>
                 import ('../components/Post.vue'),
             // props: true,
+        },
+        {
+            path: '/news/:id/edit',
+            name: 'Edit',
+            component: () =>
+                import ('../components/EditNewsItem.vue')
+
         },
         {
             path: '*',

@@ -3,7 +3,7 @@
       <h3>{{news_data.title}}</h3>
       <div class="icons">
           <img class="newsActions" src="../assets/clear.svg" v-on:click="deleteItem">
-     <router-link :to="{name: 'read', params: {id: news_data._id}}">
+     <router-link :to="{name: 'Edit', params: {id: news_data._id}}">
           <img class="edit" src="../assets/pencil.svg">
       </router-link>
       </div>
