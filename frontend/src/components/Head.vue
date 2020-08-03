@@ -4,8 +4,8 @@
          <router-link :to="'/news/'"> 
          Главная
   </router-link></a>
-      <a v-if="userName !==''" class="userName">{{userName}} |</a>
-      <a v-else class="userName"></a>
+       <a v-if="userName !==''" class="userName">{{userName}} |</a>
+      <a v-else class="userName"></a> 
         <button class="loginButton" v-if="userName ==''" v-on:click="signIn">Войти</button>
         <button class="loginButton" v-else v-on:click="signOut">Выйти</button>
     </div>
@@ -13,29 +13,44 @@
 
 <script>
 
+
 export default {
   name: 'Head',
   data() {
             return {
                 userName:'',
+                googleId:Number,
+                id_token: '',
+                userData: [],
             }
         },
     methods: {
-
-    async signIn(){
-        console.log('login');
-        const googleUser = await this.$gAuth.signIn();
-        this.userName += googleUser.Ot.FW;
-        console.log(googleUser);
+   async signIn(){
+      console.log('buttonOk'); 
+      const googleUser = await this.$gAuth.signIn();
+      localStorage.setItem('name', googleUser.Ot.FW);
+      localStorage.setItem('googleID', googleUser.Ot.$U);
+      localStorage.setItem('id_token', googleUser.wc.id_token);
+      this.userName = localStorage.getItem('name');
+      // localStorage.getItem('googleID'),
+      // localStorage.getItem('id_token')
+           
     },
-
     async signOut(){
-        const response = await this.$gAuth.signOut()
-        console.log(response);
+        await this.$gAuth.signOut();
+        localStorage.clear();
+        this.userName = '';
     }
 
   },
-
+  
+  mounted() {
+    if(localStorage.getItem('name') === null){
+      this.userName = '';
+    }else{
+      this.userName = localStorage.getItem('name');
+    }
+  },
 }
 
 </script>

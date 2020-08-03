@@ -1,12 +1,12 @@
 <template>
   <div id="navBar">
     <Head/>
-    
     <div>
         <NewsItem
         v-for="feed in NEWS"
         :key="(Object.assign({}, ...feed))._id"
         :news_data="feed"
+        @sendNewsItemId="deleteItem"
     />
     </div>
   </div>
@@ -21,7 +21,14 @@ import {mapActions, mapGetters} from 'vuex'
 export default {
   name: 'NavBar',
   methods: {
-   ...mapActions(['GET_NEWS_FROM_API']),
+   ...mapActions(['GET_NEWS_FROM_API','DELETE_NEWS_ITEM_BY_ID_FROM_API']),
+
+  //  showChildArticleInConsole(data){
+  //    console.log(data);
+  //  },
+   deleteItem(id) {
+       this.DELETE_NEWS_ITEM_BY_ID_FROM_API(id);
+   }
   },
   computed: {
    ...mapGetters(['NEWS']),

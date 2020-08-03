@@ -14,10 +14,10 @@ export default new Router({
         },
         {
             path: '/news/:id',
-            name: 'read',
+            name: 'Read',
             component: () =>
                 import ('../components/Post.vue'),
-            props: true,
+            // props: true,
         },
         {
             path: '*',

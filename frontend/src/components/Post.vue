@@ -1,31 +1,38 @@
 <template>
-    <div class="text-center">
-        <div class="col-sm-12">
-      <hr>
-      <h2>33434</h2>
-      <h5><span class="glyphicon glyphicon-time"></span> Post by 343,343.</h5>
-      <p> 3434 </p>
-  
-    </div>
-    </div>
+  <div class="post">
+      <h1>Hello  
+      </h1>
+      <!-- <h3>{{NEWS.title}}</h3>
+      <p>{{NEWS.creator.displayName}} | {{NEWS.createDate.split('T')[0]}}</p>
+      <br>
+      <p>{{NEWS.content}}</p>  -->
+  </div>
 </template>
 
 <script>
 
+import {mapActions, mapGetters} from 'vuex'
+
+
 export default {
-  data() {
-    return {
-      id: 0,
-      post: {}
-    };
-  },
-  created() {
-   
-  },
+  name: 'Post',
   methods: {
-    
-    
-  }
-};
+   ...mapActions(['GET_NEWS_ITEM_BY_ID_FROM_API']),
+  },
+  computed: {
+   ...mapGetters(['NEWS']),
+  },
+  components: {
+     
+  },
+   mounted() { 
+       this.GET_NEWS_ITEM_BY_ID_FROM_API(this.$route.params.id)
+  },
+}
 </script>
 
+<style scoped>
+.post {
+    text-align: center;
+}
+</style>
