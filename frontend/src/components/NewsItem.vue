@@ -8,7 +8,7 @@
       </router-link>
       </div>
       <p>{{news_data.creator.displayName}} | {{news_data.createDate.split('T')[0]}}</p>
-      <p>{{news_data.content}}
+      <p>{{news_data.content.substring(0,200)}}
            <router-link :to="{name: 'Read', params: {id: news_data._id}}"> 
           <!-- <router-link :to="'/news'+news_data._id">  -->
               ...
@@ -25,7 +25,9 @@ export default {
       news_data: {
           type: Object,
           default(){
-              return {}
+              return {
+                  
+              }
           }
       },
   },

@@ -1,4 +1,5 @@
 import axios from "axios"
+import qs from 'qs'
 
 export default {
     state: {
@@ -46,6 +47,23 @@ export default {
                 .then((news) => {
                     ctx.commit('SET_NEWS_TO_STATE', news.data.feeds);
                     return news;
+                })
+                .catch((error) => {
+                    console.log(error)
+                    return error;
+                })
+        },
+        CREATE_NEWS_ITEM(xAccessToken, smartParams) {
+            return axios('http://127.0.0.1:5000/api/v1/feeds', {
+                    method: "POST",
+                    headers: {
+                        'x-access-token': xAccessToken,
+                        'content-type': 'application/x-www-form-urlencoded',
+                    },
+                    smartParams: qs.stringify(smartParams)
+                })
+                .then((res) => {
+                    console.log(res)
                 })
                 .catch((error) => {
                     console.log(error)

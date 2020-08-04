@@ -27,6 +27,12 @@ export default new Router({
 
         },
         {
+            path: '/create',
+            name: 'Create',
+            component: () =>
+                import ('../components/CreateNewsItem.vue')
+        },
+        {
             path: '*',
             redirect: '/news'
         }

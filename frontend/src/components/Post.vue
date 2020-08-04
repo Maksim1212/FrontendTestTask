@@ -1,8 +1,12 @@
 <template>
   <div class="post">
-      <h1>Hello  
-      </h1>
-      <h3>{{NEWS.title}}</h3>
+    <div class="icons">
+          <img class="newsActions" src="../assets/clear.svg" v-on:click="deleteItem">
+     <router-link :to="{name: 'Edit', params: {}}">
+          <img class="edit" src="../assets/pencil.svg">
+      </router-link>
+      </div>
+      <h1>{{NEWS.title}}</h1>
       <p>{{NEWS.creator.displayName}} | {{NEWS.createDate.split('T')[0]}}</p>
       <br>
       <p>{{NEWS.content}}</p> 
@@ -12,11 +16,16 @@
 <script>
 
 import {mapActions, mapGetters} from 'vuex'
+import Head from '../components/Head'
 
 export default {
   name: 'Post',
   methods: {
-   ...mapActions(['GET_NEWS_ITEM_BY_ID_FROM_API']),
+   ...mapActions(['GET_NEWS_ITEM_BY_ID_FROM_API','DELETE_NEWS_ITEM_BY_ID_FROM_API']),
+   deleteItem(){
+     let xAccessToken = localStorage.getItem('api_token');
+        this.DELETE_NEWS_ITEM_BY_ID_FROM_API(this.$route.params.id,xAccessToken)
+    }
   },
   computed: {
    ...mapGetters(['NEWS']),
@@ -24,11 +33,37 @@ export default {
    mounted() { 
        this.GET_NEWS_ITEM_BY_ID_FROM_API(this.$route.params.id)
   },
+  component: {
+    Head
+  }
 }
 </script>
 
 <style scoped>
 .post {
     text-align: center;
+    outline: 1px solid #000;
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
 }
+.newsActions{ 
+    position: relative;
+    left: 49%;
+    cursor: pointer;
+    width: 22px;
+    height: 18px;  
+}
+.edit{
+    cursor: pointer;
+    width: 22px;
+    height: 18px;  
+    position: relative;
+    left: -68%
+}
+.icons{
+    position: absolute;
+    left: 95%;
+}
+
 </style>

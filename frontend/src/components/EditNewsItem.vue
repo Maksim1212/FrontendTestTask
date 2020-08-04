@@ -1,45 +1,65 @@
 <template>
 <div class="EditNewsItem">
-  <h2> Edit Post </h2>
-  <div><Head/></div>
           <form id="edit-post-form" @submit.prevent="editPost">
             <div class="form-group col-md-12">
-                <label for="title"> Title </label>
-                <input type="text" id="title" v-model="post.title" name="title" class="form-control" placeholder="Enter title">
-            </div>
+                <input type="text" id="title" size="90" v-model="title" name="title" class="form-control" placeholder="Enter title">
+            </div><br>
             <div class="form-group col-md-12">
-                <label for="body"> Body </label>
-                <textarea id="body" cols="30" rows="5" v-model="post.body" class="form-control"></textarea>
+                <textarea id="body" cols="90" rows="20" v-model="content" class="form-control"></textarea>
             </div>
-            <div class="form-group col-md-4 pull-right">
-                <button class="btn btn-success" type="submit"> Edit Post </button>
+            <div class="successButton">
+                <button class="btn btn-success" type="submit"> Сохранить </button>
             </div>
           </form>
+          <div class="cancelButton">
+            <button v-on:click="cancel">Отменить</button>
+          </div>
         </div>
   
 </template>
 
 <script>
-import Head from './Head'
+
+import {mapActions} from 'vuex'
 
 export default {
   name: 'EditNewsItem',
   data() {
     return {
-      id: 0,
-      post: {}
+      id : 0,
+      title: '',
+      content: '',
     };
   },
-   components: {
-    Head,
-  },
-  created() {
-   
-  },
   methods: {
-    
+   ...mapActions(['GET_NEWS_ITEM_BY_ID_FROM_API']),
+   editItem(){
+        this.DELETE_NEWS_ITEM_BY_ID_FROM_API(this.$route.params.id)
+    },
+    cancel(){
+      this.$router.push('/news/'+ this.$route.params.id);
+    },
+  },
 
-  }
+  async mounted() { 
+      let result = await this.GET_NEWS_ITEM_BY_ID_FROM_API(this.$route.params.id);
+       console.log(result.data.feed['content']);
+      this.title = result.data.feed['title'];
+      this.content = result.data.feed['content'];
+  },
 };
 </script>
-
+<style>
+.EditNewsItem {
+text-align: center;
+}
+.successButton{
+  position: relative;
+  left: -25.7%;
+}
+.cancelButton{
+  position: relative;
+  left: -18%;
+  top: -21px;
+}
+</style>

@@ -26,7 +26,7 @@ export default {
 
   methods: {
     async signIn(){
-      try{
+    try{
       const googleUser = await this.$gAuth.signIn();
       localStorage.setItem('name', googleUser.Ot.FW);
       localStorage.setItem('googleID', googleUser.Ot.$U);
@@ -39,7 +39,7 @@ export default {
       localStorage.setItem('api_token', token.data.token);
       // localStorage.getItem('googleID'),
       // localStorage.getItem('id_token')
-      }catch(error){
+    }catch(error){
         console.log(error)
       }         
     },
@@ -48,8 +48,9 @@ export default {
         await this.$gAuth.signOut();
         localStorage.clear();
         this.userName = '';
+        this.$router.push('/news');
       }catch(error){
-        console.log(error)
+        console.log(error);
       }
     }
   },
@@ -84,7 +85,7 @@ export default {
 }
 .href{
   position: relative;
-  left: -43%;
+  left: -42%;
   top: 20%;
 }
 .userName{
