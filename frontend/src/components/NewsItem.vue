@@ -1,19 +1,21 @@
 <template>
   <div class="NewsItem">
       <h3>{{news_data.title}}</h3>
-      <div class="icons">
+      <div class="icons" v-if="true">
           <img class="newsActions" src="../assets/clear.svg" v-on:click="deleteItem">
      <router-link :to="{name: 'Edit', params: {id: news_data._id}}">
           <img class="edit" src="../assets/pencil.svg">
       </router-link>
       </div>
-      <p>{{news_data.creator.displayName}} | {{news_data.createDate.split('T')[0]}}</p>
-      <p>{{news_data.content.substring(0,200)}}
+      <div class="icons" v-else></div>
+      <div>
+          <p class="dataInfo">{{news_data.creator.displayName}} | {{getDate}}</p>
+      <p>{{getContent}}
            <router-link :to="{name: 'Read', params: {id: news_data._id}}"> 
-          <!-- <router-link :to="'/news'+news_data._id">  -->
               ...
           </router-link>
       </p>
+      </div>
   </div>
 </template>
 
@@ -21,12 +23,16 @@
 
 export default {
   name: 'NewsItem',
+  data() {
+            return {
+                googleId:Number,
+            }
+        },
   props: {
       news_data: {
           type: Object,
           default(){
               return {
-                  
               }
           }
       },
@@ -36,6 +42,17 @@ export default {
         this.$emit('sendNewsItemId', this.news_data._id)
     }
   },
+  computed: {
+    getDate() {
+     return this.news_data.createDate.split('T')[0];
+   },
+    getContent() {
+       return this.news_data.content.substring(0,200);
+   },
+  },
+  mounted(){
+      localStorage.getItem('googleId');
+  }
 }
 </script>
 
@@ -46,7 +63,6 @@ export default {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
 }
-
 .edit{
     cursor: pointer;
     width: 22px;
@@ -60,6 +76,11 @@ export default {
     left: 96%;
     width: 48px;
 }
+.dataInfo{
+    /* position: relative;
+    top: 35%;
+    font-size: small; */
+}
 .newsActions{ 
     position: relative;
     left: 30%;
@@ -67,5 +88,4 @@ export default {
     width: 22px;
     height: 18px;  
 }
-
 </style>

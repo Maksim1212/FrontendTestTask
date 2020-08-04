@@ -2,24 +2,23 @@
     <div class="post_form">
         <form @submit.prevent="sendPost">
             <div class="form-group">
-                <label for="exampleInputEmail1">Title</label>
+                 <small 
+                        v-if="!$v.title.required"
+                        class="invalid-feedback">Please enter title.
+                </small>
                 <input
+                        size="90"
                         type="text"
                         class="form-control"
                         id="exampleInputEmail1"
                         aria-describedby="emailHelp"
                         v-model="title"
                         @blur="$v.title.$touch()"
-                        :class="{'is-invalid' : $v.title.$error}"
-                >
-                <small
-                        v-if="!$v.title.required"
-                        class="invalid-feedback">Please enter title.
-                </small>
-            </div>
+                        :class="{'is-invalid' : $v.title.$error}">
+            </div><br>
             <div class="form-group">
-                <label for="exampleInputPassword1">Content</label>
                 <textarea
+                        cols="90"
                         id="exampleInputPassword1"
                         class="form-control text-textarea"
                         aria-label="With textarea"
@@ -83,11 +82,17 @@
 
 <style scoped>
     .post_form{
+        text-align: center;
         max-width: 50rem;
         margin-left: 10rem;
         margin-top: 10rem;
     }
     .text-textarea{
         height: 20rem;
+    }
+    .invalid-feedback{
+        position:relative;
+        top: 20%;
+        left: 20%;
     }
 </style>

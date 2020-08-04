@@ -1,5 +1,6 @@
 <template>
-  <div class="post">
+<div>
+<div class="post">
     <div class="icons">
           <img class="newsActions" src="../assets/clear.svg" v-on:click="deleteItem">
      <router-link :to="{name: 'Edit', params: {}}">
@@ -7,9 +8,12 @@
       </router-link>
       </div>
       <h1>{{NEWS.title}}</h1>
-      <p>{{NEWS.creator.displayName}} | {{NEWS.createDate.split('T')[0]}}</p>
+      <p>{{NEWS.creator.displayName}} | {{getDate}}</p>
       <br>
-      <p>{{NEWS.content}}</p> 
+      <p>{{NEWS.content}}</p>
+</div>
+      <button v-on:click="editItem">Редактировать</button>
+      <button class="delButton" v-on:click="deleteItem">Удалить</button> 
   </div>
 </template>
 
@@ -20,22 +24,38 @@ import Head from '../components/Head'
 
 export default {
   name: 'Post',
+  data() {
+    return {
+      title: '',
+      content: '',
+    };
+  },
   methods: {
    ...mapActions(['GET_NEWS_ITEM_BY_ID_FROM_API','DELETE_NEWS_ITEM_BY_ID_FROM_API']),
    deleteItem(){
+
      let data= {
        'id': this.$route.params.id,
        'token': localStorage.getItem('api_token')
      }
         this.DELETE_NEWS_ITEM_BY_ID_FROM_API(data);
         this.$router.push('/news');
-    }
+    },
+    editItem(){
+      this.$router.push('/news/'+ this.$route.params.id +'/edit');
+    },
   },
   computed: {
+
    ...mapGetters(['NEWS']),
+
+   getDate(){
+     return this.NEWS.createDate.split('T')[0];
+   },
+
   },
    mounted() { 
-       this.GET_NEWS_ITEM_BY_ID_FROM_API(this.$route.params.id)
+       this.GET_NEWS_ITEM_BY_ID_FROM_API(this.$route.params.id);
   },
   component: {
     Head
@@ -68,6 +88,9 @@ export default {
 .icons{
     position: absolute;
     left: 95%;
+}
+.delButton{
+  margin-left: 6px;
 }
 
 </style>

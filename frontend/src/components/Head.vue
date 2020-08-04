@@ -1,13 +1,24 @@
 <template>
     <div class="Head">
-      <a class="href">
+      <div class="href">
          <router-link :to="'/news/'"> 
          Главная
-  </router-link></a>
-       <a v-if="userName !==''" class="userName">{{userName}} |</a>
+  </router-link></div>
+  <div>
+    <div class="addArticle" v-if="userName !== ''">
+<router-link :to="'/create'"> 
+        Добавить статью
+      </router-link>
+      </div>
+      <div v-else>
+      </div>
+  </div>
+  <div class="actions">
+    <a v-if="userName !==''" class="userName">{{userName}} |</a>
       <a v-else class="userName"></a> 
         <button class="loginButton" v-if="userName ==''" v-on:click="signIn">Войти</button>
         <button class="loginButton" v-else v-on:click="signOut">Выйти</button>
+  </div>
     </div>
 </template>
 
@@ -35,9 +46,7 @@ export default {
       let token = await axios.post('http://127.0.0.1:5000/api/v1/auth/google', {
         token: `${localStorage.getItem('id_token')}`
       });
-      console.log(token.data.token);
       localStorage.setItem('api_token', token.data.token);
-      // localStorage.getItem('googleID'),
       // localStorage.getItem('id_token')
     }catch(error){
         console.log(error)
@@ -48,7 +57,7 @@ export default {
         await this.$gAuth.signOut();
         localStorage.clear();
         this.userName = '';
-        this.$router.push('/news');
+        this.$router.push('/');
       }catch(error){
         console.log(error);
       }
@@ -69,29 +78,41 @@ export default {
 <style scoped>
 
 .Head {
-  width: 99%;  height: 38px; /* Размеры */
+  background: rgb(249, 249, 249);
+  width: 98.6%;  height: 38px; /* Размеры */
   outline: 1px solid #000; /* Чёрная рамка */
-  border: 3px solid #fff; /* Белая рамка */
-  border-radius: 10px; /* Радиус скругления */
-  position: relative;
-  top: -54px;
-  right: -4px;
+  position: fixed;
+  top: 6px;
 }
 .loginButton{
-  position: relative;
-  left: 42%;
-  top: 20%;
+    position: fixed;
+    left: 92%;
+    top: 18px;
+    float: left;
   /* border: 23px; */
 }
 .href{
-  position: relative;
-  left: -42%;
-  top: 20%;
+  position: fixed;
+    left: 3%;
+    height: 6%;
+    top: 18px;
+    width: 67px;
+    float: left;
+}
+.actions{
+    position: fixed;
+    left: 83%;
+    top: 18px;
+}
+.addArticle{
+  position: fixed;
+  top: 18px;
+  left: 45%;
 }
 .userName{
-  position: relative;
-  left: 41.5%;
-  top: 20%;
+  position: fixed;
+  left: 86%;;
+  top: 18px;
   font-size: 1em;
   font-weight: bold;
 }

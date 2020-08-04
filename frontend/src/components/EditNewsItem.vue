@@ -1,6 +1,8 @@
 <template>
 <div class="EditNewsItem">
-          <form id="edit-post-form" @submit.prevent="editPost">
+  <Head/>
+          <div class="formPosition">
+            <form id="edit-post-form" @submit.prevent="editPost">
             <div class="form-group col-md-12">
                 <input type="text" id="title" size="90" v-model="title" name="title" class="form-control" placeholder="Enter title">
             </div><br>
@@ -11,15 +13,17 @@
                 <button class="btn btn-success" type="submit"> Сохранить </button>
             </div>
           </form>
-          <!-- <div class="cancelButton">
+          </div>
+          <div class="cancelButton">
             <button v-on:click="cancel">Отменить</button>
-          </div> -->
+          </div>
         </div>
   
 </template>
 
 <script>
 
+import Head from '../components/Head'
 import {mapActions} from 'vuex'
 
 export default {
@@ -46,28 +50,36 @@ export default {
         token: localStorage.getItem('api_token')
       };
       this.UPDATE_NEWS_ITEM_BY_ID_FROM_API(postData);
+      this.$router.push('/news'+ this.$route.params.id);
+
     },
+  },
+  components: {
+    Head,
   },
 
   async mounted() { 
       let result = await this.GET_NEWS_ITEM_BY_ID_FROM_API(this.$route.params.id);
-       console.log(result.data.feed['content']);
+      console.log(result.data.feed['content']);
       this.title = result.data.feed['title'];
       this.content = result.data.feed['content'];
   },
 };
 </script>
 <style>
-.EditNewsItem {
-text-align: center;
-}
 .successButton{
-  position: relative;
-  left: -25.7%;
+  position: fixed;
+  left: 25%;
+  top: 510px;
+}
+.formPosition{
+  position: fixed;
+  left: 25%;
+  top: 25%;
 }
 .cancelButton{
-  position: relative;
-  left: -18%;
-  top: -21px;
+  position: fixed;
+  left: 32%;
+  top: 510px;
 }
 </style>

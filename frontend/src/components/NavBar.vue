@@ -1,9 +1,6 @@
 <template>
   <div id="navBar">
     <Head/>
-      <router-link :to="'/create'"> 
-        Добавить статью
-  </router-link>
     <div>
         <NewsItem
         v-for="feed in NEWS"
@@ -26,9 +23,6 @@ export default {
   methods: {
    ...mapActions(['GET_NEWS_FROM_API','DELETE_NEWS_ITEM_BY_ID_FROM_API']),
 
-  //  showChildArticleInConsole(data){
-  //    console.log(data);
-  //  },
    deleteItem(id) {
      let data={
        'token' : localStorage.getItem('api_token'),
@@ -47,7 +41,7 @@ export default {
    
   },
    mounted() { 
-       this.GET_NEWS_FROM_API()
+       this.GET_NEWS_FROM_API();
   },
 }
 </script>
