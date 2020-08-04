@@ -11,9 +11,9 @@
                 <button class="btn btn-success" type="submit"> Сохранить </button>
             </div>
           </form>
-          <div class="cancelButton">
+          <!-- <div class="cancelButton">
             <button v-on:click="cancel">Отменить</button>
-          </div>
+          </div> -->
         </div>
   
 </template>
@@ -26,18 +26,26 @@ export default {
   name: 'EditNewsItem',
   data() {
     return {
-      id : 0,
       title: '',
       content: '',
     };
   },
   methods: {
-   ...mapActions(['GET_NEWS_ITEM_BY_ID_FROM_API']),
+   ...mapActions(['GET_NEWS_ITEM_BY_ID_FROM_API','UPDATE_NEWS_ITEM_BY_ID_FROM_API']),
    editItem(){
         this.DELETE_NEWS_ITEM_BY_ID_FROM_API(this.$route.params.id)
     },
     cancel(){
       this.$router.push('/news/'+ this.$route.params.id);
+    },
+    editPost(){
+      let postData = {
+        title: this.title,
+        content: this.content,
+        id: this.$route.params.id,
+        token: localStorage.getItem('api_token')
+      };
+      this.UPDATE_NEWS_ITEM_BY_ID_FROM_API(postData);
     },
   },
 

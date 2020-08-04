@@ -30,8 +30,12 @@ export default {
   //    console.log(data);
   //  },
    deleteItem(id) {
-     let xAccessToken = localStorage.getItem('api_token');
-      this.DELETE_NEWS_ITEM_BY_ID_FROM_API(id,xAccessToken);
+     let data={
+       'token' : localStorage.getItem('api_token'),
+       'id' : id
+     }
+      this.DELETE_NEWS_ITEM_BY_ID_FROM_API(data);
+      this.GET_NEWS_FROM_API();
    }
   },
   computed: {

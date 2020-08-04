@@ -23,8 +23,12 @@ export default {
   methods: {
    ...mapActions(['GET_NEWS_ITEM_BY_ID_FROM_API','DELETE_NEWS_ITEM_BY_ID_FROM_API']),
    deleteItem(){
-     let xAccessToken = localStorage.getItem('api_token');
-        this.DELETE_NEWS_ITEM_BY_ID_FROM_API(this.$route.params.id,xAccessToken)
+     let data= {
+       'id': this.$route.params.id,
+       'token': localStorage.getItem('api_token')
+     }
+        this.DELETE_NEWS_ITEM_BY_ID_FROM_API(data);
+        this.$router.push('/news');
     }
   },
   computed: {

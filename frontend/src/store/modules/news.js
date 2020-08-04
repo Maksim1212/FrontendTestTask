@@ -1,5 +1,5 @@
 import axios from "axios"
-import qs from 'qs'
+// import qs from 'qs'
 
 export default {
     state: {
@@ -37,14 +37,15 @@ export default {
                     return error;
                 })
         },
-        DELETE_NEWS_ITEM_BY_ID_FROM_API(ctx, id, xAccessToken) {
-            return axios(`http://127.0.0.1:5000/api/v1/feeds/${id}`, {
+        DELETE_NEWS_ITEM_BY_ID_FROM_API(ctx, data) {
+            return axios(`http://127.0.0.1:5000/api/v1/feeds/${data.id}`, {
                     method: "DELETE",
                     headers: {
-                        'x-access-token': `${xAccessToken}`
+                        'x-access-token': data.token
                     }
                 })
                 .then((news) => {
+                    console.log(news)
                     ctx.commit('SET_NEWS_TO_STATE', news.data.feeds);
                     return news;
                 })
@@ -53,17 +54,39 @@ export default {
                     return error;
                 })
         },
-        CREATE_NEWS_ITEM(xAccessToken, smartParams) {
+        CREATE_NEWS_ITEM(ctx, data) {
             return axios('http://127.0.0.1:5000/api/v1/feeds', {
                     method: "POST",
                     headers: {
-                        'x-access-token': xAccessToken,
-                        'content-type': 'application/x-www-form-urlencoded',
+                        'x-access-token': data.token,
                     },
-                    smartParams: qs.stringify(smartParams)
+                    data: {
+                        'title': data.title,
+                        'content': data.content,
+                    }
                 })
                 .then((res) => {
                     console.log(res)
+                })
+                .catch((error) => {
+                    console.log(error)
+                    return error;
+                })
+        },
+        UPDATE_NEWS_ITEM_BY_ID_FROM_API(ctx, data) {
+            return axios(`http://127.0.0.1:5000/api/v1/feeds/${data.id}`, {
+                    method: "PUT",
+                    headers: {
+                        'x-access-token': data.token,
+                    },
+                    data: {
+                        'title': data.title,
+                        'content': data.content,
+                    },
+                })
+                .then((news) => {
+                    ctx.commit('SET_NEWS_TO_STATE', news.data.feed);
+                    return news;
                 })
                 .catch((error) => {
                     console.log(error)

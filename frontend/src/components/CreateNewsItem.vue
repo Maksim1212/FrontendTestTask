@@ -55,15 +55,12 @@
             ...mapActions(['CREATE_NEWS_ITEM']),
             sendPost() {
                 if (this.title.trim() && this.content.trim()) {
-                    let xAccesToken = localStorage.getItem('api_token');
-                    let newPost = {
+                    let data = {
+                        'token': localStorage.getItem('api_token'),
                         'title': this.title,
                         'content': this.content,
                     };
-                    console.log(newPost);
-                    this.CREATE_NEWS_ITEM(xAccesToken,newPost)
-                    console.log(newPost)
-                    console.log(xAccesToken)
+                    this.CREATE_NEWS_ITEM(data)
                     alert('Ваш пост был успешно добавлен!')
                     // this.title = this.content = ''
                     this.$router.push('/news')
