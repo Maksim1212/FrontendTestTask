@@ -63,7 +63,6 @@
                     };
                     this.CREATE_NEWS_ITEM(data);
                     alert('Ваш пост был успешно добавлен!');
-                    // this.title = this.content = ''
                     this.$router.push('/news');
                 }
                 else {

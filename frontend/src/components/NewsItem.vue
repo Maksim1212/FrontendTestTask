@@ -1,7 +1,7 @@
 <template>
   <div class="NewsItem">
       <h3>{{news_data.title}}</h3>
-      <div class="icons" v-if="true">
+      <div class="icons" v-if="checkUserId">
           <img class="newsActions" src="../assets/clear.svg" v-on:click="deleteItem">
      <router-link :to="{name: 'Edit', params: {id: news_data._id}}">
           <img class="edit" src="../assets/pencil.svg">
@@ -49,6 +49,13 @@ export default {
     getContent() {
        return this.news_data.content.substring(0,200);
    },
+   checkUserId(){
+      let sessionUserId = localStorage.getItem('sessionUserId');
+      let creatorID = this.news_data.creator._id;
+      if(sessionUserId == creatorID){
+          return true;
+      } else return false;
+   }
   },
   mounted(){
       localStorage.getItem('googleId');

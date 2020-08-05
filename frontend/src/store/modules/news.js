@@ -64,8 +64,9 @@ export default {
                         'content': data.content,
                     }
                 })
-                .then((res) => {
-                    console.log(res)
+                .then((news) => {
+                    ctx.commit('SET_NEWS_TO_STATE', news.data.feed);
+
                 })
                 .catch((error) => {
                     console.log(error)

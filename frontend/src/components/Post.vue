@@ -2,21 +2,23 @@
 <div>
   <Head/>
 <div class="post">
-    <div class="icons">
+    <div class="icons" v-if="checkUserId">
           <img class="newsActions" src="../assets/clear.svg" v-on:click="deleteItem">
      <router-link :to="{name: 'Edit', params: {}}">
           <img class="edit" src="../assets/pencil.svg">
       </router-link>
       </div>
-      <h1>{{NEWS.title}}</h1>
-      <p>{{NEWS.creator.displayName}} | {{getDate}}</p>
+      <div v-else></div>
+      <h1>{{this.NEWS.title}}</h1>
+      <p>{{this.NEWS.creator.displayName}} | {{getDate}}</p>
       <br>
-      <p>{{NEWS.content}}</p>
+      <p>{{this.NEWS.content}}</p>
 </div>
-     <div class="buttons">
+     <div class="buttons" v-if="checkUserId">
         <button v-on:click="editItem">Редактировать</button>
         <button class="delButton" v-on:click="deleteItem">Удалить</button> 
      </div>
+     <div class="buttons" v-else></div>
   </div>
 </template>
 
@@ -27,12 +29,6 @@ import Head from '../components/Head'
 
 export default {
   name: 'Post',
-  data() {
-    return {
-      title: '',
-      content: '',
-    };
-  },
   methods: {
    ...mapActions(['GET_NEWS_ITEM_BY_ID_FROM_API','DELETE_NEWS_ITEM_BY_ID_FROM_API']),
    deleteItem(){
@@ -55,6 +51,10 @@ export default {
    getDate(){
      return this.NEWS.createDate.split('T')[0];
    },
+
+    checkUserId(){
+      return true
+   }
 
   },
    mounted() { 

@@ -47,6 +47,8 @@ export default {
         token: `${localStorage.getItem('id_token')}`
       });
       localStorage.setItem('api_token', token.data.token);
+      localStorage.setItem('sessionUserId', token.data.user);
+      this.$router.go();
       // localStorage.getItem('id_token')
     }catch(error){
         console.log(error)
@@ -57,7 +59,7 @@ export default {
         await this.$gAuth.signOut();
         localStorage.clear();
         this.userName = '';
-        this.$router.push('/');
+        this.$router.go('/');
       }catch(error){
         console.log(error);
       }

@@ -51,10 +51,10 @@ export async function googleAuth(ctx) {
     } else {
         user = existentUsers[0];
     }
-
     const accessToken = user.generateToken();
 
     ctx.body = {
-        token: accessToken
+        token: accessToken,
+        user: user._id,
     };
 }
