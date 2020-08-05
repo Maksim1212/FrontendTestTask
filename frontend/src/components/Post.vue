@@ -30,8 +30,8 @@ import Head from '../components/Head'
 export default {
   name: 'Post',
   methods: {
-   ...mapActions(['GET_NEWS_ITEM_BY_ID_FROM_API','DELETE_NEWS_ITEM_BY_ID_FROM_API']),
-   deleteItem(){
+  ...mapActions(['GET_NEWS_ITEM_BY_ID_FROM_API','DELETE_NEWS_ITEM_BY_ID_FROM_API']),
+  deleteItem(){
 
      let data= {
        'id': this.$route.params.id,

@@ -13,7 +13,6 @@
                         type="text"
                         class="form-control"
                         v-model="title"
-                        @blur="$v.title.$touch()"
                         :class="{'is-invalid' : $v.title.$error}">
             </div><br>
             <div class="form-group">
@@ -21,7 +20,6 @@
                         cols="90"
                         class="text-textarea"
                         v-model="content"
-                        @blur="$v.content.$touch()"
                         :class="{'is-invalid' : $v.content.$error}"
                 ></textarea>
                 <small
@@ -31,8 +29,7 @@
             </div>
             <button type="submit"
                     class="btn-btn-primary"
-                    :disabled="$v.$invalid"
-            >Сохранить</button>
+                    :disabled="$v.$invalid">Сохранить</button>
         </form>
         <button class="cancelButton" v-on:click="cancel">Отмена</button>
         </div>

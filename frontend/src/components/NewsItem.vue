@@ -49,7 +49,7 @@ export default {
     getContent() {
        return this.news_data.content.substring(0,200);
    },
-   checkUserId(){
+    checkUserId(){
       let sessionUserId = localStorage.getItem('sessionUserId');
       let creatorID = this.news_data.creator._id;
       if(sessionUserId == creatorID){
@@ -82,11 +82,6 @@ export default {
     top: -38px;
     left: 96%;
     width: 48px;
-}
-.dataInfo{
-    /* position: relative;
-    top: 35%;
-    font-size: small; */
 }
 .newsActions{ 
     position: relative;

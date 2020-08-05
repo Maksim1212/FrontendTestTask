@@ -1,23 +1,31 @@
 <template>
 <div class="EditNewsItem">
   <Head/>
-          <div class="formPosition">
-            <form id="edit-post-form" @submit.prevent="editPost">
-            <div class="form-group col-md-12">
-                <input type="text" id="title" size="90" v-model="title" name="title" class="form-control" placeholder="Enter title">
-            </div><br>
-            <div class="form-group col-md-12">
-                <textarea id="body" cols="90" rows="20" v-model="content" class="form-control"></textarea>
-            </div>
-            <div class="successButton">
-                <button class="btn btn-success" type="submit"> Сохранить </button>
-            </div>
-          </form>
-          </div>
+     <div class="formPosition">
+        <form id="edit-post-form" @submit.prevent="editPost">
+          <div class="form-group col-md-12">
+              <input type="text" 
+              id="title" 
+              size="90" 
+              v-model="title" 
+              name="title" 
+              class="form-control" 
+              placeholder="Enter title"
+              :class="{'is-invalid' : $v.title.$error}">
+           </div><br>
+        <div class="form-group col-md-12">
+           <textarea id="body" cols="90" rows="20" v-model="content" class="form-control"
+                        :class="{'is-invalid' : $v.content.$error}"></textarea>
+        </div>
+           <div class="successButton">
+             <button class="btn btn-success" type="submit" :disabled="$v.$invalid"> Сохранить </button>
+        </div>
+        </form>
+      </div>
           <div class="cancelButton">
             <button v-on:click="cancel">Отменить</button>
           </div>
-        </div>
+      </div>
   
 </template>
 
@@ -25,6 +33,7 @@
 
 import Head from '../components/Head'
 import {mapActions} from 'vuex'
+import { required } from 'vuelidate/lib/validators'
 
 export default {
   name: 'EditNewsItem',
@@ -50,13 +59,21 @@ export default {
         token: localStorage.getItem('api_token')
       };
       this.UPDATE_NEWS_ITEM_BY_ID_FROM_API(postData);
-      this.$router.push('/news'+ this.$route.params.id);
+      this.$router.push('/news/'+ this.$route.params.id);
 
     },
   },
   components: {
     Head,
-  },
+  }, 
+     validations: {
+            title: {
+                required,
+            },
+            content: {
+                required,
+            }
+        },
 
   async mounted() { 
       let result = await this.GET_NEWS_ITEM_BY_ID_FROM_API(this.$route.params.id);

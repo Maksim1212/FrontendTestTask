@@ -43,12 +43,6 @@ export default {
   },
    mounted() { 
        this.GET_NEWS_FROM_API();
-      //  let res =await axios(`http://127.0.0.1:5000/api/users/${this.$route.params.id}`, {
-      //               method: "DELETE",
-      //               headers: {
-      //                   'x-access-token': data.token
-      //               }
-      //           })
   },
 }
 </script>

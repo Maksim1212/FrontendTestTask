@@ -118,6 +118,4 @@ export default {
   font-size: 1em;
   font-weight: bold;
 }
-
-
 </style>
