@@ -30,8 +30,8 @@ import Head from '../components/Head'
 export default {
   name: 'Post',
   methods: {
-  ...mapActions(['GET_NEWS_ITEM_BY_ID_FROM_API','DELETE_NEWS_ITEM_BY_ID_FROM_API']),
-  deleteItem(){
+    ...mapActions(['GET_NEWS_ITEM_BY_ID_FROM_API','DELETE_NEWS_ITEM_BY_ID_FROM_API']),
+    deleteItem(){
 
      let data= {
        'id': this.$route.params.id,
@@ -40,12 +40,13 @@ export default {
         this.DELETE_NEWS_ITEM_BY_ID_FROM_API(data);
         this.$router.push('/news');
     },
+
     editItem(){
       this.$router.push('/news/'+ this.$route.params.id +'/edit');
     },
   },
-  computed: {
 
+  computed: {
    ...mapGetters(['NEWS']),
 
    getDate(){
@@ -57,9 +58,11 @@ export default {
    }
 
   },
-   mounted() { 
+
+  mounted() { 
        this.GET_NEWS_ITEM_BY_ID_FROM_API(this.$route.params.id);
   },
+
   components: {
     Head
   }
@@ -72,7 +75,6 @@ export default {
   top: 56px;
     text-align: center;
     outline: 1px solid #000;
-    /* Add shadows to create the "card" effect */
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
 }

@@ -33,14 +33,16 @@ export default {
       this.$router.go();
    }
   },
+
   computed: {
    ...mapGetters(['NEWS']),
   },
+
   components: {
     Head,
     NewsItem,
-   
   },
+  
    mounted() { 
        this.GET_NEWS_FROM_API();
   },

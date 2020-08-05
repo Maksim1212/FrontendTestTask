@@ -49,11 +49,11 @@ export default {
       localStorage.setItem('api_token', token.data.token);
       localStorage.setItem('sessionUserId', token.data.user);
       this.$router.go();
-      // localStorage.getItem('id_token')
     }catch(error){
         console.log(error)
       }         
     },
+
     async signOut(){
       try{
         await this.$gAuth.signOut();
@@ -74,37 +74,36 @@ export default {
     }
   },
 }
-
 </script>
 
 <style scoped>
 
 .Head {
   background: rgb(249, 249, 249);
-  width: 98.6%;  height: 38px; /* Размеры */
-  outline: 1px solid #000; /* Чёрная рамка */
+  width: 98.6%;  height: 38px; 
+  outline: 1px solid #000; 
   position: fixed;
   top: 6px;
 }
 .loginButton{
-    position: fixed;
-    left: 92%;
-    top: 18px;
-    float: left;
-  /* border: 23px; */
+  position: fixed;
+  left: 92%;
+  top: 18px;
+  float: left;
+  
 }
 .href{
   position: fixed;
-    left: 3%;
-    height: 6%;
-    top: 18px;
-    width: 67px;
-    float: left;
+  left: 3%;
+  height: 6%;
+  top: 18px;
+  width: 67px;
+  float: left;
 }
 .actions{
-    position: fixed;
-    left: 83%;
-    top: 18px;
+  position: fixed;
+  left: 83%;
+  top: 18px;
 }
 .addArticle{
   position: fixed;

@@ -66,14 +66,15 @@ export default {
   components: {
     Head,
   }, 
-     validations: {
-            title: {
-                required,
-            },
-            content: {
-                required,
-            }
-        },
+  
+  validations: {
+      title: {
+        required,
+      },
+      content: {
+        required,
+      }
+  },
 
   async mounted() { 
       let result = await this.GET_NEWS_ITEM_BY_ID_FROM_API(this.$route.params.id);
@@ -83,6 +84,7 @@ export default {
   },
 };
 </script>
+
 <style>
 .successButton{
   position: fixed;
