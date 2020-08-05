@@ -1,5 +1,6 @@
 <template>
 <div>
+  <Head/>
 <div class="post">
     <div class="icons">
           <img class="newsActions" src="../assets/clear.svg" v-on:click="deleteItem">
@@ -12,8 +13,10 @@
       <br>
       <p>{{NEWS.content}}</p>
 </div>
-      <button v-on:click="editItem">Редактировать</button>
-      <button class="delButton" v-on:click="deleteItem">Удалить</button> 
+     <div class="buttons">
+        <button v-on:click="editItem">Редактировать</button>
+        <button class="delButton" v-on:click="deleteItem">Удалить</button> 
+     </div>
   </div>
 </template>
 
@@ -57,7 +60,7 @@ export default {
    mounted() { 
        this.GET_NEWS_ITEM_BY_ID_FROM_API(this.$route.params.id);
   },
-  component: {
+  components: {
     Head
   }
 }
@@ -65,6 +68,8 @@ export default {
 
 <style scoped>
 .post {
+  position: relative;
+  top: 56px;
     text-align: center;
     outline: 1px solid #000;
     /* Add shadows to create the "card" effect */
@@ -88,6 +93,10 @@ export default {
 .icons{
     position: absolute;
     left: 95%;
+}
+.buttons{
+  position: fixed;
+  top: 50%;
 }
 .delButton{
   margin-left: 6px;
