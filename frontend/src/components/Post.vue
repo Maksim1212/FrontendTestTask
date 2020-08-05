@@ -29,6 +29,11 @@ import Head from '../components/Head'
 
 export default {
   name: 'Post',
+  data(){
+    return {
+       authorID: ''
+    }
+},
   methods: {
     ...mapActions(['GET_NEWS_ITEM_BY_ID_FROM_API','DELETE_NEWS_ITEM_BY_ID_FROM_API']),
     deleteItem(){
@@ -48,19 +53,22 @@ export default {
 
   computed: {
    ...mapGetters(['NEWS']),
-
    getDate(){
      return this.NEWS.createDate.split('T')[0];
    },
 
     checkUserId(){
-      return true
+      let sessionUserId = localStorage.getItem('sessionUserId');
+      if(sessionUserId == this.authorID){
+          return true;
+      } else return false;
    }
 
   },
 
-  mounted() { 
-       this.GET_NEWS_ITEM_BY_ID_FROM_API(this.$route.params.id);
+  async mounted() { 
+       let res = await this.GET_NEWS_ITEM_BY_ID_FROM_API(this.$route.params.id);
+       this.authorID =res.data.feed.creator._id;
   },
 
   components: {
