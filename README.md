@@ -1,4 +1,3 @@
-# [Тестовое Задание](https://bitbucket.org/i-d-c/frontendtesttask/)
 
 ### Чек-лист решения
 
